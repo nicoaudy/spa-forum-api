@@ -7,8 +7,16 @@ Route::group(['middleware' => 'api'], function(){
     Route::post('auth/signup', [
         'uses' => 'AuthController@signup'
     ]);
+
     Route::post('auth/signin', [
         'uses' => 'AuthController@signin'
+    ]);
+
+    /**
+     * Section
+     */
+    Route::get('/sections', [
+        'uses' => 'Forum\SectionController@index'
     ]);
 
     /**
