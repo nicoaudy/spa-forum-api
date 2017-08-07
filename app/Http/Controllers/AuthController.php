@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -22,7 +23,9 @@ class AuthController extends Controller
     public function signin(Request $request)
     {
         try {
-            $token = JWTAuth::attempt($request->only('email', 'password'));
+            $token = JWTAuth::attempt($request->only('email', 'password'), [
+                'exp'   => Carbon::now()->addWeek()->timestamp,
+            ]);
         } catch (JWTException $e) {
             return response()->json([
                 'error' => 'Could not authenticate.'
