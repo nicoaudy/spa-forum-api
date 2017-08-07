@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password'
     ];
 
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+
     public function avatar()
     {
         return 'http://www.gravatar.com/avatar' .md5($this->email). '?s=35&d=mm';
