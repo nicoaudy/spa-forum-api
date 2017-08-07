@@ -15,6 +15,8 @@ Route::group(['middleware' => 'api'], function(){
      * Protected request
      */
     Route::group(['middleware' => 'jwt.auth'], function() {
-        //
+        Route::get('/user', [
+            'uses'  => 'UserController@index'
+        ]);
     });
 });

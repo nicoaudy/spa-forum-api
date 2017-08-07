@@ -168,6 +168,8 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+        Spatie\Fractal\FractalServiceProvider::class,
+
 
         /*
          * Application Service Providers...
