@@ -2,14 +2,16 @@
 
 namespace App\Transformers;
 
+use App\Models\Section;
 use App\Models\Topic;
+use App\Transformers\SectionTransformer;
 use App\Transformers\UserTransformer;
 use League\Fractal\TransformerAbstract;
 
 class TopicTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'user'
+        'user', 'section'
     ];
     public function transform(Topic $topic)
     {
@@ -25,5 +27,10 @@ class TopicTransformer extends TransformerAbstract
     public function includeUser(Topic $topic)
     {
         return $this->item($topic->user, new UserTransformer);
+    }
+
+    public function includeSection(Topic $topic)
+    {
+        return $this->item($topic->section, new SectionTransformer);
     }
 }
