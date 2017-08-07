@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Forum\CreateTopicRequest;
 use App\Models\Section;
 use App\Models\Topic;
+use App\Transformers\TopicTransformer;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -28,5 +29,7 @@ class TopicController extends Controller
             'body'          => $request->json('body'),
             'section_id'    => $request->json('section_id'),
         ]);
+
+        return fractal()->item($topic)->transformWith(new TopicTransformer)->toArray();
     }
 }
