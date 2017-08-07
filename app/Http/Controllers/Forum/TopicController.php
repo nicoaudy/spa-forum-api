@@ -18,7 +18,7 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        //
+        return fractal()->item($topic)->includeUser()->transformWith(new TopicTransformer)->toArray();
     }
 
     public function store(CreateTopicRequest $request)
