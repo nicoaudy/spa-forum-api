@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Forum;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forum\CreateTopicRequest;
+use App\Http\Requests\Forum\GetTopicsRequest;
 use App\Models\Section;
 use App\Models\Topic;
 use App\Transformers\TopicTransformer;
-use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
-    public function index(Request $request, Section $section)
+    public function index(GetTopicsRequest $request, Section $section)
     {
-        //
+        $topics = $section->find($request->get('section_id'))->topics()->latestFirst()->get();
+        return fractal()->collection($topics)->includeUser()->transformWith(new TopicTransformer)->toArray();
     }
 
     public function show(Topic $topic)
