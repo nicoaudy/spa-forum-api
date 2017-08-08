@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\RegisterFormRequest;
 use App\Models\User;
+use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -38,6 +39,10 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return response()->json(compact('token'));
+        return fractal()->item($request->user(), new UserTransformer)
+        ->addMeta([
+            'token' => $token
+        ])
+        ->toArray();
     }
 }
