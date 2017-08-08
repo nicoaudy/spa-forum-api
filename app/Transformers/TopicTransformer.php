@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Models\Section;
 use App\Models\Topic;
+use App\Transformers\PostTransformer;
 use App\Transformers\SectionTransformer;
 use App\Transformers\UserTransformer;
 use League\Fractal\TransformerAbstract;
@@ -11,7 +12,7 @@ use League\Fractal\TransformerAbstract;
 class TopicTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'user', 'section'
+        'user', 'section', 'posts'
     ];
     public function transform(Topic $topic)
     {
@@ -32,5 +33,10 @@ class TopicTransformer extends TransformerAbstract
     public function includeSection(Topic $topic)
     {
         return $this->item($topic->section, new SectionTransformer);
+    }
+
+    public function includePosts(Topic $topic)
+    {
+        return $this->collection($topic->posts, new PostTransformer);
     }
 }
